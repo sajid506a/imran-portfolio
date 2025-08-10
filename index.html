@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Syed Imran Ali — Full Stack Developer</title>
+  <meta name="description" content="Syed Imran Ali — Full Stack Developer. Cloud-native, Node.js, React, Angular, AWS, Azure, microservices, DevOps, data viz and more." />
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent1:#1e3c72;
+      --accent2:#2a5298;
+      --glass: rgba(255,255,255,0.6);
+      --chip-bg:#eef2ff;
+      --success:#10b981;
+      --shadow: 0 6px 20px rgba(16,24,40,0.08);
+      --glass-border: rgba(255,255,255,0.6);
+    }
+    [data-theme="dark"]{
+      --bg:#0b1220;
+      --card:#071127;
+      --muted:#9aa4b2;
+      --accent1:#6ee7b7;
+      --accent2:#60a5fa;
+      --glass: rgba(255,255,255,0.03);
+      --chip-bg:#071127;
+      --shadow: 0 8px 30px rgba(2,6,23,0.6);
+      --glass-border: rgba(255,255,255,0.04);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:linear-gradient(180deg,var(--bg), #e9eef7 120%);
+      -webkit-font-smoothing:antialiased;
+      color:var(--muted);
+      line-height:1.5;
+      padding-bottom:80px;
+    }
+
+    .page {
+      max-width:1100px;
+      margin:32px auto;
+      padding:24px;
+    }
+
+    header.top {
+      display:flex;
+      gap:16px;
+      align-items:center;
+      padding:28px;
+      border-radius:14px;
+      background: linear-gradient(135deg,var(--accent1), var(--accent2));
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+    .avatar{
+      width:96px;
+      height:96px;
+      border-radius:14px;
+      background:linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.06));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:30px;
+      flex:0 0 96px;
+      color:rgba(255,255,255,0.95);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(6px);
+    }
+    .intro{
+      flex:1;
+    }
+    .name{
+      margin:0;
+      font-size:1.6rem;
+      letter-spacing:0.2px;
+    }
+    .title{
+      margin:6px 0 0 0;
+      opacity:0.92;
+      font-weight:500;
+      font-size:1rem;
+    }
+    .contact{
+      margin-top:12px;
+      font-size:0.95rem;
+      opacity:0.95;
+    }
+    .contact a{ color: rgba(255,255,255,0.95); text-decoration:underline; }
+
+    .controls{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      margin-left:auto;
+    }
+    .btn{
+      border:0;
+      padding:8px 12px;
+      border-radius:10px;
+      background:rgba(255,255,255,0.12);
+      color:#fff;
+      cursor:pointer;
+      font-weight:600;
+      font-size:0.9rem;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn.light{
+      background: rgba(255,255,255,0.18);
+    }
+
+    main {
+      margin-top:20px;
+      display:grid;
+      grid-template-columns: 1fr 380px;
+      gap:20px;
+    }
+    @media (max-width:980px){
+      main{ grid-template-columns: 1fr; }
+      .controls{ display:none; }
+    }
+
+    section.card{
+      background:var(--card);
+      border-radius:12px;
+      padding:18px;
+      box-shadow: var(--shadow);
+      border:1px solid var(--glass-border);
+    }
+    h2.section-title{
+      margin:0 0 12px 0;
+      color:var(--accent1);
+    }
+    p.lead{ margin:0; color:var(--muted); font-size:1rem; }
+
+    /* Skills */
+    .skill-controls{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .filter-btn{
+      background:transparent;
+      border:1px solid rgba(0,0,0,0.06);
+      padding:8px 10px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:600;
+      color:var(--muted);
+      font-size:0.9rem;
+    }
+    [data-theme="dark"] .filter-btn{ border-color: rgba(255,255,255,0.04); }
+    .filter-btn.active{
+      background: linear-gradient(90deg,var(--accent1),var(--accent2));
+      color:white;
+      box-shadow:0 8px 24px rgba(42,82,152,0.18);
+      border:0;
+    }
+
+    .search {
+      display:flex;
+      gap:8px;
+      margin:12px 0 4px 0;
+    }
+    .search input{
+      flex:1;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(0,0,0,0.06);
+      background:transparent;
+      color:var(--muted);
+      outline:none;
+    }
+    [data-theme="dark"] .search input{ border-color: rgba(255,255,255,0.04); }
+
+    .skills-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+      gap:10px;
+      margin-top:12px;
+    }
+    .chip{
+      background:var(--chip-bg);
+      padding:10px;
+      border-radius:10px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow: 0 2px 10px rgba(2,6,23,0.03);
+      border:1px solid rgba(0,0,0,0.03);
+      font-weight:600;
+      color:var(--accent1);
+      min-height:46px;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .chip:hover{ transform: translateY(-4px); box-shadow: 0 10px 30px rgba(2,6,23,0.06); }
+    [data-theme="dark"] .chip{ border-color: rgba(255,255,255,0.02); color:var(--accent2); background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); }
+
+    .chip .left { display:flex; gap:10px; align-items:center; }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background:var(--accent2); box-shadow:0 2px 6px rgba(42,82,152,0.2);
+    }
+    .meta { font-size:0.82rem; color:var(--muted); font-weight:500; }
+
+    /* right column */
+    .sidebar .box { margin-bottom:14px; }
+    .cert-list, .contact-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
+    .cert-item, .contact-item{
+      padding:10px 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+      border-radius:10px;
+      font-weight:600;
+      color:var(--accent1);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border:1px solid rgba(0,0,0,0.04);
+    }
+    [data-theme="dark"] .cert-item{ background:transparent; border-color: rgba(255,255,255,0.03); color:var(--muted); }
+
+    .cta-row { display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
+    .primary {
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      color:white;
+      border:0; padding:10px 14px; border-radius:10px; font-weight:700; cursor:pointer;
+    }
+    .ghost {
+      background:transparent; border:1px solid rgba(0,0,0,0.06); color:var(--muted); padding:10px 12px; border-radius:10px; cursor:pointer;
+    }
+    [data-theme="dark"] .ghost{ border-color: rgba(255,255,255,0.04) }
+
+    footer{
+      margin-top:28px;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.92rem;
+    }
+
+    /* small helper */
+    .tiny { font-size:0.84rem; color:var(--muted); }
+  </style>
+</head>
+<body data-theme="light">
+  <div class="page">
+    <header class="top" role="banner" aria-label="Profile header">
+      <div class="avatar" aria-hidden="true">SI</div>
+      <div class="intro">
+        <h1 class="name">Syed Imran Ali</h1>
+        <div class="title">Full Stack Developer — Cloud-native · Node · React · Angular · DevOps</div>
+        <div class="contact">
+          <span class="tiny">Email: <a href="mailto:sajid16a@gmail.com">sajid16a@gmail.com</a></span> &nbsp;·&nbsp;
+          <span class="tiny">Phone: <a href="tel:+919963978764">+91 99639 78764</a></span>
+        </div>
+      </div>
+
+      <div class="controls" aria-hidden="true">
+        <button id="toggleTheme" class="btn light" title="Toggle dark / light mode">🌙 Dark</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT: content -->
+      <section class="card" aria-labelledby="about-title">
+        <h2 id="about-title" class="section-title">Professional Summary</h2>
+        <p class="lead">
+          Full Stack professional with 14+ years building high-performance, scalable web applications and cloud-native systems.
+          Strong in frontend and backend engineering, microservices, serverless, architecture design and delivery. Passionate about
+          observability, automation, and clean, maintainable code.
+        </p>
+
+        <div style="height:14px"></div>
+
+        <h2 class="section-title">Skills & Technologies</h2>
+
+        <div class="skill-controls" role="toolbar" aria-label="Filter skills">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="frontend">Frontend</button>
+          <button class="filter-btn" data-filter="backend">Backend</button>
+          <button class="filter-btn" data-filter="cloud">Cloud & DevOps</button>
+          <button class="filter-btn" data-filter="testing">Testing & QA</button>
+          <button class="filter-btn" data-filter="data">Data & Viz</button>
+          <button class="filter-btn" data-filter="tools">Tools & Libraries</button>
+          <button class="filter-btn" data-filter="security">Security</button>
+        </div>
+
+        <div class="search" role="search">
+          <input id="skillSearch" type="search" placeholder="Search skills (type to filter)" aria-label="Search skills">
+          <button id="clearSearch" class="ghost" title="Clear search">Clear</button>
+        </div>
+
+        <div id="skills" class="skills-grid" aria-live="polite">
+          <!-- FRONTEND -->
+          <div class="chip" data-categories="frontend">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>HTML5</div></div>
+            <div class="meta">Frontend</div>
+          </div>
+          <div class="chip" data-categories="frontend">
+            <div class="left"><div class="dot" style="background:#7dd3fc"></div><div>CSS3 / SCSS / SASS</div></div>
+            <div class="meta">Frontend</div>
+          </div>
+          <div class="chip" data-categories="frontend">
+            <div class="left"><div class="dot" style="background:#34d399"></div><div>Responsive Web Design & Media Queries</div></div>
+            <div class="meta">Frontend</div>
+          </div>
+          <div class="chip" data-categories="frontend">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>JavaScript (ES6+)</div></div>
+            <div class="meta">Frontend</div>
+          </div>
+          <div class="chip" data-categories="frontend,tools">
+            <div class="left"><div class="dot" style="background:#fca5a5"></div><div>TypeScript</div></div>
+            <div class="meta">Frontend</div>
+          </div>
+          <div class="chip" data-categories="frontend">
+            <div class="left"><div class="dot" style="background:#93c5fd"></div><div>Angular / AngularJS</div></div>
+            <div class="meta">Frontend</div>
+          </div>
+          <div class="chip" data-categories="frontend">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>React.js</div></div>
+            <div class="meta">Frontend</div>
+          </div>
+          <div class="chip" data-categories="frontend">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>Vue.js</div></div>
+            <div class="meta">Frontend</div>
+          </div>
+          <div class="chip" data-categories="frontend">
+            <div class="left"><div class="dot" style="background:#fb7185"></div><div>Redux / NGRX</div></div>
+            <div class="meta">State</div>
+          </div>
+          <div class="chip" data-categories="frontend,tools">
+            <div class="left"><div class="dot" style="background:#f97316"></div><div>React Router / SPA routing</div></div>
+            <div class="meta">Frontend</div>
+          </div>
+          <div class="chip" data-categories="frontend,tools">
+            <div class="left"><div class="dot" style="background:#f59e0b"></div><div>Bootstrap / Angular Material</div></div>
+            <div class="meta">UI</div>
+          </div>
+          <div class="chip" data-categories="frontend,tools">
+            <div class="left"><div class="dot" style="background:#f97316"></div><div>Kendo UI / Telerik</div></div>
+            <div class="meta">UI</div>
+          </div>
+          <div class="chip" data-categories="frontend">
+            <div class="left"><div class="dot" style="background:#34d399"></div><div>Accessibility (WCAG)</div></div>
+            <div class="meta">Frontend</div>
+          </div>
+
+          <!-- BACKEND -->
+          <div class="chip" data-categories="backend">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>Node.js</div></div>
+            <div class="meta">Backend</div>
+          </div>
+          <div class="chip" data-categories="backend">
+            <div class="left"><div class="dot" style="background:#7c3aed"></div><div>Express.js</div></div>
+            <div class="meta">Backend</div>
+          </div>
+          <div class="chip" data-categories="backend,cloud">
+            <div class="left"><div class="dot" style="background:#06b6d4"></div><div>RESTful APIs & API design</div></div>
+            <div class="meta">Backend</div>
+          </div>
+          <div class="chip" data-categories="backend,architecture">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>Microservices architecture</div></div>
+            <div class="meta">Architecture</div>
+          </div>
+          <div class="chip" data-categories="backend">
+            <div class="left"><div class="dot" style="background:#34d399"></div><div>Server-side rendering & SSR patterns</div></div>
+            <div class="meta">Backend</div>
+          </div>
+
+          <!-- CLOUD & DEVOPS -->
+          <div class="chip" data-categories="cloud">
+            <div class="left"><div class="dot" style="background:#f97316"></div><div>AWS (Lambda, S3, API Gateway, ECS Fargate, ECR)</div></div>
+            <div class="meta">Cloud</div>
+          </div>
+          <div class="chip" data-categories="cloud">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>AWS CloudFormation & Terraform</div></div>
+            <div class="meta">Infra</div>
+          </div>
+          <div class="chip" data-categories="cloud">
+            <div class="left"><div class="dot" style="background:#06b6d4"></div><div>DynamoDB & NoSQL patterns</div></div>
+            <div class="meta">Data</div>
+          </div>
+          <div class="chip" data-categories="cloud">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>Azure (Functions, Event Hubs, B2C)</div></div>
+            <div class="meta">Cloud</div>
+          </div>
+          <div class="chip" data-categories="cloud">
+            <div class="left"><div class="dot" style="background:#34d399"></div><div>Google Cloud Platform (GCP)</div></div>
+            <div class="meta">Cloud</div>
+          </div>
+          <div class="chip" data-categories="cloud,devops">
+            <div class="left"><div class="dot" style="background:#7c3aed"></div><div>CI/CD (Jenkins, GitHub Actions, CodePipeline)</div></div>
+            <div class="meta">DevOps</div>
+          </div>
+          <div class="chip" data-categories="cloud,devops">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>Docker, Containerization</div></div>
+            <div class="meta">DevOps</div>
+          </div>
+          <div class="chip" data-categories="cloud,devops">
+            <div class="left"><div class="dot" style="background:#34d399"></div><div>Infrastructure as Code (Terraform)</div></div>
+            <div class="meta">Infra</div>
+          </div>
+
+          <!-- DATA & VISUALIZATION -->
+          <div class="chip" data-categories="data">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>D3.js</div></div>
+            <div class="meta">Viz</div>
+          </div>
+          <div class="chip" data-categories="data">
+            <div class="left"><div class="dot" style="background:#7dd3fc"></div><div>Chart.js</div></div>
+            <div class="meta">Viz</div>
+          </div>
+          <div class="chip" data-categories="data">
+            <div class="left"><div class="dot" style="background:#34d399"></div><div>Pandas & Python (data tasks)</div></div>
+            <div class="meta">Data</div>
+          </div>
+
+          <!-- TESTING & QA -->
+          <div class="chip" data-categories="testing">
+            <div class="left"><div class="dot" style="background:#f97316"></div><div>Jest</div></div>
+            <div class="meta">Testing</div>
+          </div>
+          <div class="chip" data-categories="testing">
+            <div class="left"><div class="dot" style="background:#f97316"></div><div>Mocha / Chai</div></div>
+            <div class="meta">Testing</div>
+          </div>
+          <div class="chip" data-categories="testing">
+            <div class="left"><div class="dot" style="background:#f97316"></div><div>Jasmine / Karma</div></div>
+            <div class="meta">Testing</div>
+          </div>
+          <div class="chip" data-categories="testing">
+            <div class="left"><div class="dot" style="background:#f97316"></div><div>Protractor / E2E</div></div>
+            <div class="meta">Testing</div>
+          </div>
+
+          <!-- TOOLS & LIBRARIES -->
+          <div class="chip" data-categories="tools">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>Webpack / Babel</div></div>
+            <div class="meta">Build</div>
+          </div>
+          <div class="chip" data-categories="tools">
+            <div class="left"><div class="dot" style="background:#34d399"></div><div>NPM / Yarn</div></div>
+            <div class="meta">Package</div>
+          </div>
+          <div class="chip" data-categories="tools">
+            <div class="left"><div class="dot" style="background:#7c3aed"></div><div>Git / GitHub / TFS</div></div>
+            <div class="meta">VCS</div>
+          </div>
+          <div class="chip" data-categories="tools">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>Winston / CloudWatch (logging)</div></div>
+            <div class="meta">Observability</div>
+          </div>
+          <div class="chip" data-categories="tools">
+            <div class="left"><div class="dot" style="background:#f59e0b"></div><div>Jenkins</div></div>
+            <div class="meta">CI</div>
+          </div>
+
+          <!-- SECURITY -->
+          <div class="chip" data-categories="security">
+            <div class="left"><div class="dot" style="background:#ef4444"></div><div>JWT / OAuth</div></div>
+            <div class="meta">Security</div>
+          </div>
+          <div class="chip" data-categories="security">
+            <div class="left"><div class="dot" style="background:#ef4444"></div><div>Authentication & Authorization</div></div>
+            <div class="meta">Security</div>
+          </div>
+
+          <!-- OTHER -->
+          <div class="chip" data-categories="other">
+            <div class="left"><div class="dot" style="background:#60a5fa"></div><div>Performance Optimization</div></div>
+            <div class="meta">Other</div>
+          </div>
+          <div class="chip" data-categories="other">
+            <div class="left"><div class="dot" style="background:#34d399"></div><div>Cross-Browser Compatibility</div></div>
+            <div class="meta">Other</div>
+          </div>
+          <div class="chip" data-categories="other">
+            <div class="left"><div class="dot" style="background:#7c3aed"></div><div>Micro-frontends orchestration</div></div>
+            <div class="meta">Architecture</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- RIGHT: sidebar -->
+      <aside class="sidebar">
+        <div class="card box" aria-labelledby="certs">
+          <h2 id="certs" class="section-title">Certifications</h2>
+          <ul class="cert-list" aria-hidden="false">
+            <li class="cert-item">AWS Certified AI Practitioner</li>
+            <li class="cert-item">AWS Certified Cloud Practitioner</li>
+            <li class="cert-item">Azure AZ-104 Administrator Associate</li>
+          </ul>
+        </div>
+
+        <div class="card box" aria-labelledby="contact">
+          <h2 id="contact" class="section-title">Contact</h2>
+          <div class="tiny">Open to full-time, contract & advisory roles. Available for interviews and technical reviews.</div>
+          <div class="cta-row">
+            <a class="primary" href="mailto:sajid16a@gmail.com">Email</a>
+            <button class="ghost" onclick="copyPhone()">Copy Phone</button>
+            <!-- If you upload a resume file to the same repo, change href to that file path (example: ./Resume.pdf) -->
+            <a class="ghost" href="#" onclick="alert('Add your resume file to the repo and update this link to ./Resume.pdf')">Download Resume</a>
+          </div>
+        </div>
+
+        <div class="card box" aria-labelledby="about-me">
+          <h2 id="about-me" class="section-title">Quick Highlights</h2>
+          <ul style="margin:0;padding-left:18px;color:var(--muted);">
+            <li>14+ years building web platforms & dashboards</li>
+            <li>Cloud-native & serverless experience (AWS & Azure)</li>
+            <li>Strong API design, microservices & observability</li>
+            <li>Automated CI/CD pipelines and infra as code</li>
+            <li>Data visualization with D3 and Chart.js</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <div class="tiny">&copy; <span id="year"></span> Syed Imran Ali — Built with clean code & attention to detail.</div>
+    </footer>
+  </div>
+
+  <script>
+    // populate year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle
+    const themeBtn = document.getElementById('toggleTheme');
+    const root = document.documentElement;
+    const body = document.body;
+    function setTheme(t){
+      body.setAttribute('data-theme', t);
+      themeBtn.textContent = (t === 'dark') ? '☀️ Light' : '🌙 Dark';
+    }
+    // persist
+    const saved = localStorage.getItem('portfolio-theme') || 'light';
+    setTheme(saved);
+    themeBtn.addEventListener('click', () => {
+      const next = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+      localStorage.setItem('portfolio-theme', next);
+    });
+
+    // Skill filtering
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const chips = Array.from(document.querySelectorAll('.chip'));
+    const searchInput = document.getElementById('skillSearch');
+    const clearBtn = document.getElementById('clearSearch');
+
+    function setActiveFilter(el){
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function filterSkills(){
+      const activeFilterBtn = document.querySelector('.filter-btn.active');
+      const category = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
+      const q = searchInput.value.trim().toLowerCase();
+
+      chips.forEach(chip => {
+        const cats = chip.dataset.categories ? chip.dataset.categories.split(',').map(s=>s.trim()) : [];
+        const text = chip.textContent.toLowerCase();
+        const matchesCategory = (category === 'all') || cats.includes(category);
+        const matchesSearch = q === '' || text.includes(q);
+        if (matchesCategory && matchesSearch) {
+          chip.style.display = '';
+        } else {
+          chip.style.display = 'none';
+        }
+      });
+    }
+
+    filterBtns.forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        setActiveFilter(btn);
+        filterSkills();
+      });
+    });
+
+    searchInput.addEventListener('input', () => {
+      filterSkills();
+    });
+
+    clearBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      searchInput.value = '';
+      filterSkills();
+    });
+
+    // copy phone
+    function copyPhone(){
+      const phone = '+919963978764';
+      navigator.clipboard?.writeText(phone).then(()=> {
+        alert('Phone number copied to clipboard: ' + phone);
+      }, ()=> {
+        alert('Could not copy automatically. Phone: ' + phone);
+      });
+    }
+
+    // initial filter
+    filterSkills();
+
+    // keyboard accessibility: allow filter buttons to be toggled with keyboard
+    filterBtns.forEach(b=>{
+      b.setAttribute('tabindex', '0');
+      b.addEventListener('keyup', (e)=> { if(e.key === 'Enter' || e.key === ' ') b.click(); });
+    });
+  </script>
+</body>
+</html>

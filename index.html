@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-scale,initial-scale=1" />
+  <title>Syed Imran Ali — Full Stack Developer</title>
+  <meta name="description" content="Syed Imran Ali — Full Stack Developer specializing in cloud-native architectures, JavaScript frameworks, and DevOps automation." />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-theme="light">
+  <header>
+    <button class="toggle-btn" id="themeToggle">Dark Mode</button>
+    <h1>Syed Imran Ali</h1>
+    <p>Full Stack Developer | Cloud-Native Solutions | JavaScript Frameworks | DevOps Automation</p>
+    <p>Email: <a href="mailto:sajid16a@gmail.com" style="color:white;">sajid16a@gmail.com</a> | Phone: +91 99639 78764</p>
+  </header>
+
+  <nav>
+    <a href="#summary">Summary</a>
+    <a href="#skills">Skills</a>
+    <a href="#certifications">Certifications</a>
+  </nav>
+
+  <section id="summary">
+    <h2>Professional Summary</h2>
+    <p class="summary">
+      Full Stack Engineer with 14+ years of expertise in architecting and delivering high-performance web applications. 
+      Proficient in Node.js, Angular, React.js, and TypeScript, with a strong focus on scalable microservices, cloud-native 
+      architectures (AWS, Azure, GCP), and DevOps automation. Experienced in end-to-end delivery: design, development, 
+      CI/CD, performance optimization, and production support.
+    </p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills & Technologies</h2>
+    <div class="skill-controls">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="frontend">Frontend</button>
+      <button class="filter-btn" data-filter="backend">Backend</button>
+      <button class="filter-btn" data-filter="cloud">Cloud & DevOps</button>
+      <button class="filter-btn" data-filter="testing">Testing</button>
+      <button class="filter-btn" data-filter="data">Data & Visualization</button>
+      <button class="filter-btn" data-filter="tools">Tools</button>
+      <button class="filter-btn" data-filter="security">Security</button>
+    </div>
+    <div class="search">
+      <input id="skillSearch" type="search" placeholder="Search skills...">
+      <button id="clearSearch">Clear</button>
+    </div>
+    <div class="skills-grid" id="skillsGrid">
+      <!-- Skills will be injected here -->
+    </div>
+  </section>
+
+  <section id="certifications">
+    <h2>Certifications</h2>
+    <ul>
+      <li>AWS Certified AI Practitioner</li>
+      <li>AWS Certified Cloud Practitioner</li>
+      <li>Azure AZ-104 Certified Administrator Associate</li>
+    </ul>
+  </section>
+
+  <footer>
+    &copy; <span id="year"></span> Syed Imran Ali — Built for performance and clarity.
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

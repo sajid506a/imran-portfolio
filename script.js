@@ -61,7 +61,7 @@ const skillsData = [
   { name: "Cross-Browser Compatibility", categories: ["frontend"] }
 ];
 
-// Render skills
+// Render skills with icons & tooltips
 const skillsGrid = document.getElementById('skillsGrid');
 function renderSkills() {
   skillsGrid.innerHTML = '';
@@ -70,10 +70,15 @@ function renderSkills() {
     div.className = 'skill';
     div.dataset.categories = skill.categories.join(' ');
 
-    // Icon
+    // Icon (color by first category)
     const icon = document.createElement('div');
     icon.className = 'skill-icon';
     icon.style.background = categoryColors[skill.categories[0]] || '#999';
+
+    // Tooltip
+    const tooltip = document.createElement('div');
+    tooltip.className = 'skill-tooltip';
+    tooltip.textContent = skill.categories[0].charAt(0).toUpperCase() + skill.categories[0].slice(1);
 
     // Text
     const text = document.createElement('div');
@@ -82,12 +87,13 @@ function renderSkills() {
 
     div.appendChild(icon);
     div.appendChild(text);
+    div.appendChild(tooltip);
     skillsGrid.appendChild(div);
   });
 }
 renderSkills();
 
-// Filtering logic
+// Filtering
 const filterBtns = document.querySelectorAll('.filter-btn');
 const searchInput = document.getElementById('skillSearch');
 const clearBtn = document.getElementById('clearSearch');
@@ -120,5 +126,4 @@ clearBtn.addEventListener('click', () => {
   filterSkills();
 });
 
-// Initial filter
 filterSkills();
